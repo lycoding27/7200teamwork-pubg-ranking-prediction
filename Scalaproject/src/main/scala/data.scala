@@ -1,7 +1,7 @@
 import org.apache.spark.sql.{DataFrame, SparkSession}
 import org.apache.spark.ml.Pipeline
 import org.apache.spark.ml.evaluation.RegressionEvaluator
-import org.apache.spark.ml.feature.VectorIndexer
+import org.apache.spark.ml.feature.{StandardScaler, StandardScalerModel, VectorAssembler, VectorIndexer}
 import org.apache.spark.ml.regression.{RandomForestRegressionModel, RandomForestRegressor}
 object data extends App {
   val spark: SparkSession = SparkSession
@@ -16,7 +16,11 @@ object data extends App {
     .load("src/main/Resources/data.csv")
 
     //data.show()
-  //try to find the abnormal data
+  /**
+   * try to find the abnormal data
+   * and clean the data
+   */
+
   //find the abnormal kills
   data.createOrReplaceTempView("pubg")
   val abnormalkills = spark.sql("select * from pubg where kills < 20")
@@ -41,6 +45,48 @@ object data extends App {
   abnormalweapinAcquired.createOrReplaceTempView("weapon")
   val finaldata = spark.sql("select * from weapon where heals < 40")
   finaldata.show();
+
+
+  /**
+   * get the data for trainning
+   */
+  finaldata.createOrReplaceTempView("finaldata")
+  val preddata : DataFrame = spark.sql("select DBNOs, assists, boosts, damageDealt, headshotKills, heals, killPlace, killPoints, killStreaks, kills, longestKill, matchDuration, rankPoints, revives, rideDistance, roadKills, swimDistance, teamKills, vehicleDestroys, walkDistance, weaponsAcquired, winPoints, numGroups, maxPlace, winPlacePerc from finaldata")
+  val Array(train_valid, test) = preddata.randomSplit(Array(0.9, 0.1), seed = 1111L)
+  val Array(train, valid) = train_valid.randomSplit(Array(0.7, 0.3), seed = 222L)
+
+  test.show()
+  //print(test.count())
+
+
+  /**
+  * select features from dataset
+  * */
+  val assembler: VectorAssembler = new VectorAssembler()
+    .setInputCols(Array("DBNOs", "assists", "boosts", "damageDealt", "headshotKills", "heals", "killPlace", "killPoints", "killStreaks", "kills", "longestKill", "matchDuration", "rankPoints", "revives", "rideDistance", "roadKills", "swimDistance", "teamKills", "vehicleDestroys", "walkDistance", "weaponsAcquired", "winPoints", "numGroups", "maxPlace", "winPlacePerc"))
+    .setOutputCol("features")
+
+  val assTrain: DataFrame = assembler.transform(train)
+  val assValid: DataFrame = assembler.transform(valid)
+  val assTest: DataFrame = assembler.transform(test)
+
+
+  /**
+   * standardize features
+   */
+  val scaler: StandardScaler = new StandardScaler()
+    .setInputCol(assembler.getOutputCol)
+    .setOutputCol("scaledFeatures")
+    .setWithStd(true)
+    .setWithMean(true)
+
+  val scalerM: StandardScalerModel = scaler.fit(assTrain)
+  val scaleTrain: DataFrame = scalerM.transform(assTrain)
+  val scaleValid: DataFrame = scalerM.transform(assValid)
+  val scaleTest: DataFrame = scalerM.transform(assTest)
+
+
+
 
 
 

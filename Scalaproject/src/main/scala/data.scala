@@ -19,28 +19,29 @@ object data extends App {
   //try to find the abnormal data
   //find the abnormal kills
   data.createOrReplaceTempView("pubg")
-  val abnormalkills = spark.sql("select * from pubg where kills > 20000")
+  val abnormalkills = spark.sql("select * from pubg where kills < 20")
   abnormalkills.show();
   //find the abnormal ridedistance
-  data.createOrReplaceTempView("pubg")
-  val abnormalrideDistance = spark.sql("select * from pubg where rideDistance > 20000")
+  abnormalkills.createOrReplaceTempView("kills")
+  val abnormalrideDistance = spark.sql("select * from kills where rideDistance < 20000")
   abnormalrideDistance.show();
 
-  data.createOrReplaceTempView("pubg")
-  val abnormalwalkDistance = spark.sql("select * from pubg where walkDistance > 10000")
+  abnormalrideDistance.createOrReplaceTempView("ride")
+  val abnormalwalkDistance = spark.sql("select * from ride where walkDistance < 10000")
   abnormalwalkDistance.show();
 
-  data.createOrReplaceTempView("pubg")
-  val abnormalswimDistance = spark.sql("select * from pubg where swimDistance > 10000")
+  abnormalwalkDistance.createOrReplaceTempView("walk")
+  val abnormalswimDistance = spark.sql("select * from walk where swimDistance < 10000")
   abnormalswimDistance.show();
 
-  data.createOrReplaceTempView("pubg")
-  val abnormalweapinAcquired = spark.sql("select * from pubg where weaponsAcquired > 80")
+  abnormalswimDistance.createOrReplaceTempView("swim")
+  val abnormalweapinAcquired = spark.sql("select * from swim where weaponsAcquired < 80")
   abnormalweapinAcquired.show();
 
-  data.createOrReplaceTempView("pubg")
-  val abnormalheals = spark.sql("select * from pubg where heals > 40")
-  abnormalheals.show();
+  abnormalweapinAcquired.createOrReplaceTempView("weapon")
+  val finaldata = spark.sql("select * from weapon where heals < 40")
+  finaldata.show();
+
 
 
 

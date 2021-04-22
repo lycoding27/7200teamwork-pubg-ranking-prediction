@@ -63,7 +63,7 @@ object data{
   * select features from dataset
   * */
   val assembler: VectorAssembler = new VectorAssembler()
-    .setInputCols(Array("DBNOs", "assists", "boosts", "damageDealt", "headshotKills", "heals", "killPlace", "killPoints", "killStreaks", "kills", "longestKill", "matchDuration", "rankPoints", "revives", "rideDistance","swimDistance","walkDistance", "weaponsAcquired", "winPoints", "numGroups", "maxPlace", "winPlacePerc"))
+    .setInputCols(Array("DBNOs", "assists", "boosts", "damageDealt", "headshotKills", "heals", "killPlace", "killPoints", "killStreaks", "kills", "longestKill", "matchDuration", "rankPoints", "revives", "rideDistance","swimDistance","walkDistance", "weaponsAcquired", "winPoints", "numGroups", "maxPlace" ))
     .setOutputCol("features")
 
   val pTrain: DataFrame = assembler.transform(train)

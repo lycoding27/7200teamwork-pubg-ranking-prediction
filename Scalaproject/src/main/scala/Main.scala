@@ -1,6 +1,8 @@
+import org.apache.spark.ml.feature.VectorAssembler
+
 import java.util.Date
 
-object Main  extends App{
+object Main extends App{
 
   /**
    * user system
@@ -80,8 +82,8 @@ object Main  extends App{
     println("MaxPlace(Worst ranking of all players in this round):")
     val maxPlace = scala.io.StdIn.readInt()
 
-    println("WinPlacePerc:")
-    val winPlacePerc = scala.io.StdIn.readDouble()
+//    println("WinPlacePerc:")
+//    val winPlacePerc = scala.io.StdIn.readDouble()
 
     /**
      * get start time
@@ -92,9 +94,20 @@ object Main  extends App{
      * convert data into required dataframe
      */
     val userData = data.spark.createDataFrame(Seq(
-      (DBNOs, assists, boosts, damageDealt, headshotKills, heals, killPlace, killPoints, killStreaks, kills, longestKill, matchDuration, rankPoints, revives, rideDistance,swimDistance,walkDistance, weaponsAcquired, winPoints, numGroups, maxPlace, winPlacePerc)
-    )).toDF("DBNOs", "assists", "boosts", "damageDealt", "headshotKills", "heals", "killPlace", "killPoints", "killStreaks", "kills", "longestKill", "matchDuration", "rankPoints", "revives", "rideDistance", "swimDistance","walkDistance", "weaponsAcquired", "winPoints", "numGroups", "maxPlace", "winPlacePerc")
+      (DBNOs, assists, boosts, damageDealt, headshotKills, heals, killPlace, killPoints, killStreaks, kills, longestKill, matchDuration, rankPoints, revives, rideDistance,swimDistance,walkDistance, weaponsAcquired, winPoints, numGroups, maxPlace)
+    )).toDF("DBNOs", "assists", "boosts", "damageDealt", "headshotKills", "heals", "killPlace", "killPoints", "killStreaks", "kills", "longestKill", "matchDuration", "rankPoints", "revives", "rideDistance", "swimDistance","walkDistance", "weaponsAcquired", "winPoints", "numGroups", "maxPlace")
 
+    val assembler = new VectorAssembler()
+      .setInputCols(Array("DBNOs", "assists", "boosts", "damageDealt", "headshotKills", "heals", "killPlace", "killPoints", "killStreaks", "kills", "longestKill", "matchDuration", "rankPoints", "revives", "rideDistance", "swimDistance","walkDistance", "weaponsAcquired", "winPoints", "numGroups", "maxPlace"))
+      .setOutputCol("features")
+
+    val validData = assembler.transform(userData)
+
+    /**
+     * Predict user inputs with selected best model
+     */
+    val predictions = GradientboostedTreeRegression.model.transform(userData)
+    predictions.show(false)
 
     /**
      * prediction
@@ -105,6 +118,9 @@ object Main  extends App{
     /**
      * show the result
      */
+    val finalRes = predictions.select("predictions").rdd.first().getDouble(0)
+
+    println(finalRes)
 
     println("Running time for prediction:" + ((end.getTime - start.getTime).toDouble / 1000))
     //to be ....

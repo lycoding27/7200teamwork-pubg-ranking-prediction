@@ -2,7 +2,7 @@ import org.apache.spark.ml.Pipeline
 import org.apache.spark.ml.evaluation.RegressionEvaluator
 import org.apache.spark.ml.feature.VectorIndexer
 import org.apache.spark.ml.regression.{GBTRegressionModel, GBTRegressor}
-object GradientboostedTreeRegression extends App{
+object GradientboostedTreeRegression {
   // Train a GBT model.
   val gbt = new GBTRegressor()
     .setLabelCol("winPlacePerc")

@@ -124,11 +124,14 @@ object Main  extends App{
           /**
            * show the result
            */
+          println("==========")
+          println("Running time for prediction:" + ((end.getTime - start.getTime).toDouble / 1000))
+          println("============")
           val finalRes = predictions.select("predictions").rdd.first().getDouble(0)
 
           println(finalRes)
 
-          println("Running time for prediction:" + ((end.getTime - start.getTime).toDouble / 1000))
+
           //to be ....
 
 

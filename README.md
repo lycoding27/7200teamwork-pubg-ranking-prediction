@@ -6,12 +6,12 @@ This project is designed as the final project of CSYE7200 in Northeastern Univer
 
 ### Abstract
 Our goal is to create a model which predicts players' finishing placement based on their final stats, on a scale from 1 (first place) to 0 (last place). We preprocessed the data and train 4 different models(Decision Tree, LinearRegresstion, Randomforest and GTR) with 22 features(Kills, boosts, etc). Our program can automatically select the best model based on r2 and rmse. The users can input the information and then predict the ranking(winPlacePerc) of players. 
-### Started
+### How to work
 Clone or download the repository to local.
 
 Open the ScalaProject file with IDEA. Run Main.scala in Final Project/src/main/scala/Main.scala.It will take 3-4 minutes to train all machine learning models when you first run Main.scala. Follow the instruction in console to input required features and system will return predictions.
 
-### Bulid with
+### Bulid 
 **Scala** - The program language to implement the program.
 
 **IntelliJ IDEA** - The IDE to development the system.

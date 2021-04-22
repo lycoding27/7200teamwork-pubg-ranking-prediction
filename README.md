@@ -1,11 +1,11 @@
 # 7200teamwork-pubg-ranking-prediction-team8
-This project is designed as the final project of Northeastern University COE-CSYE7200 , taught by Prof. Robin Hillyard.
+This project is designed as the final project of CSYE7200 in Northeastern University, taught by Prof.Robin Hillyard.
 
 ### Team members
 *Yimu Liu, Ziyang Wei* 
 
 ### Abstract
-Our goal is to create a model which predicts players' finishing placement based on their final stats, on a scale from 1 (first place) to 0 (last place). We preprocessed the data and train 4 different models(Decision Tree, LinearRegresstion, Randomforest and GTR) with 22 features(Kills, boosts, etc). Our program can automatically select the best model base on r2 and rmse. The users can input the information and then predict the rank(winPlacePerc). 
+Our goal is to create a model which predicts players' finishing placement based on their final stats, on a scale from 1 (first place) to 0 (last place). We preprocessed the data and train 4 different models(Decision Tree, LinearRegresstion, Randomforest and GTR) with 22 features(Kills, boosts, etc). Our program can automatically select the best model based on r2 and rmse. The users can input the information and then predict the ranking(winPlacePerc) of players. 
 ### Started
 Clone or download the repository to local.
 

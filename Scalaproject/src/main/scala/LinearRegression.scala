@@ -9,7 +9,7 @@ object LinearRegression extends App{
     .setLabelCol("winPlacePerc")
 
   // Fit the model
-  val lrModel = lr.fit(data.assTrain)
+  val lrModel = lr.fit(data.pTrain)
 
   // Print the coefficients and intercept for linear regression
   println(s"Coefficients: ${lrModel.coefficients} Intercept: ${lrModel.intercept}")

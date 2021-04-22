@@ -3,7 +3,7 @@ import org.apache.spark.ml.Pipeline
 import org.apache.spark.ml.evaluation.RegressionEvaluator
 import org.apache.spark.ml.feature.{StandardScaler, StandardScalerModel, VectorAssembler, VectorIndexer}
 import org.apache.spark.ml.regression.{RandomForestRegressionModel, RandomForestRegressor}
-object data {
+object data{
   val spark: SparkSession = SparkSession
     .builder()
     .appName("ProcessData")

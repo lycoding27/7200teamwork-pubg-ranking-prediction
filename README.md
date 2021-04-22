@@ -5,7 +5,16 @@ This project is designed as the final project of Northeastern University COE-CSY
 *Yimu Liu, Ziyang Wei* 
 
 ### Abstract
-Our goal is to create a model which predicts players' finishing placement based on their final stats, on a scale from 1 (first place) to 0 (last place). We preprocessed the data and train 7 different models(Decision Tree, SVM, Logistic Regression, etc) with 9 features(Gold Diff, Kills, Structures, etc). Our program can automatically select the best model base on accuracy. Finally, we implement the UI by Play Framework. The users can input the information of first 15 minutes and then get the result of the match.
+Our goal is to create a model which predicts players' finishing placement based on their final stats, on a scale from 1 (first place) to 0 (last place). We preprocessed the data and train 4 different models(Decision Tree, LinearRegresstion, Randomforest and GTR) with 22 features(Kills, boosts, etc). Our program can automatically select the best model base on r2 and rmse. The users can input the information and then predict the rank(winPlacePerc). 
+### Started
+Clone or download the repository to local.
 
+Open the ScalaProject file with IDEA. Run Main.scala in Final Project/src/main/scala/Main.scala.It will take 3-4 minutes to train all machine learning models when you first run Main.scala. Follow the instruction in console to input required features and system will return predictions.
 
+### Bulid with
+**Scala** - The program language to implement the program.
+
+**IntelliJ IDEA** - The IDE to development the system.
+
+**Spark** - The framework to develop the Machine Learning process
 

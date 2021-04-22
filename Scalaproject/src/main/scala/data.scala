@@ -51,7 +51,7 @@ object data {
    * get the data for trainning
    */
   finaldata.createOrReplaceTempView("finaldata")
-  val preddata : DataFrame = spark.sql("select DBNOs, assists, boosts, damageDealt, headshotKills, heals, killPlace, killPoints, killStreaks, kills, longestKill, matchDuration, rankPoints, revives, rideDistance, roadKills, swimDistance, teamKills, vehicleDestroys, walkDistance, weaponsAcquired, winPoints, numGroups, maxPlace, winPlacePerc from finaldata")
+  val preddata : DataFrame = spark.sql("select DBNOs, assists, boosts, damageDealt, headshotKills, heals, killPlace, killPoints, killStreaks, kills, longestKill, matchDuration, rankPoints, revives, rideDistance, swimDistance, walkDistance, weaponsAcquired, winPoints, numGroups, maxPlace, winPlacePerc from finaldata")
   val Array(train_valid, test) = preddata.randomSplit(Array(0.9, 0.1), seed = 1111L)
   val Array(train, valid) = train_valid.randomSplit(Array(0.7, 0.3), seed = 222L)
 
@@ -63,12 +63,12 @@ object data {
   * select features from dataset
   * */
   val assembler: VectorAssembler = new VectorAssembler()
-    .setInputCols(Array("DBNOs", "assists", "boosts", "damageDealt", "headshotKills", "heals", "killPlace", "killPoints", "killStreaks", "kills", "longestKill", "matchDuration", "rankPoints", "revives", "rideDistance", "roadKills", "swimDistance", "teamKills", "vehicleDestroys", "walkDistance", "weaponsAcquired", "winPoints", "numGroups", "maxPlace", "winPlacePerc"))
+    .setInputCols(Array("DBNOs", "assists", "boosts", "damageDealt", "headshotKills", "heals", "killPlace", "killPoints", "killStreaks", "kills", "longestKill", "matchDuration", "rankPoints", "revives", "rideDistance","swimDistance","walkDistance", "weaponsAcquired", "winPoints", "numGroups", "maxPlace", "winPlacePerc"))
     .setOutputCol("features")
 
-  val assTrain: DataFrame = assembler.transform(train)
-  val assValid: DataFrame = assembler.transform(valid)
-  val assTest: DataFrame = assembler.transform(test)
+  val pTrain: DataFrame = assembler.transform(train)
+  val pValid: DataFrame = assembler.transform(valid)
+  val pTest: DataFrame = assembler.transform(test)
 
 
   /**
@@ -80,18 +80,10 @@ object data {
     .setWithStd(true)
     .setWithMean(true)
 
-  val scalerM: StandardScalerModel = scaler.fit(assTrain)
-  val scaleTrain: DataFrame = scalerM.transform(assTrain)
-  val scaleValid: DataFrame = scalerM.transform(assValid)
-  val scaleTest: DataFrame = scalerM.transform(assTest)
-
-
-
-
-
-
-
-
+  val scalerM: StandardScalerModel = scaler.fit(pTrain)
+  val sTrain: DataFrame = scalerM.transform(pTrain)
+  val sValid: DataFrame = scalerM.transform(pValid)
+  val sTest: DataFrame = scalerM.transform(pTest)
 
   //println(spark.sql("select * from pubg where matchType IN ('squad-fpp', 'squad')").count())
   // Split the data into training and test sets (30% held out for testing).

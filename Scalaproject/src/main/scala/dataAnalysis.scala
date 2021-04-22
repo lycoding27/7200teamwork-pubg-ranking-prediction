@@ -8,11 +8,7 @@ import data.spark.implicits._
 
 object dataAnalysis extends App {
 
-  def toDoubleDynamic(x: Any) = x match {
-    case s: String => s.toDouble
-    case jn: java.lang.Number => jn.doubleValue()
-    case _ => throw new ClassCastException("cannot cast to double")
-  }
+
 
   /**
    * Read and convert data.
@@ -33,16 +29,16 @@ object dataAnalysis extends App {
     val onethree = row.getAs[Integer]("rankPoints")
     val onefour = row.getAs[Integer]("revives")
     val onefive = row.getAs[Double]("rideDistance")
-    val onesix = row.getAs[Integer]("roadKills")
+    //val onesix = row.getAs[Integer]("roadKills")
     val oneseven = row.getAs[Double]("swimDistance")
-    val oneeight = row.getAs[Integer]("teamKills")
-    val onenine = row.getAs[Integer]("vehicleDestroys")
+    //val oneeight = row.getAs[Integer]("teamKills")
+    //val onenine = row.getAs[Integer]("vehicleDestroys")
     val twozero = row.getAs[Double]("walkDistance")
     val twoone = row.getAs[Integer]("weaponsAcquired")
     val twotwo = row.getAs[Integer]("winPoints")
     val twothree = row.getAs[Integer]("numGroups")
     val twofour = row.getAs[Double]("winPlacePerc")
-    Vectors.dense(one.toDouble,two.toDouble,three.toDouble,four,five.toDouble,six.toDouble,seven.toDouble,eight.toDouble,nine.toDouble,ten.toDouble,eleven,twelve.toDouble,onethree.toDouble,onefour.toDouble,onefive,onesix.toDouble,oneseven,oneeight.toDouble,onenine.toDouble,twozero,twoone.toDouble,twotwo.toDouble,twothree.toDouble,twofour)
+    Vectors.dense(one.toDouble,two.toDouble,three.toDouble,four,five.toDouble,six.toDouble,seven.toDouble,eight.toDouble,nine.toDouble,ten.toDouble,eleven,twelve.toDouble,onethree.toDouble,onefour.toDouble,onefive,oneseven,twozero,twoone.toDouble,twotwo.toDouble,twothree.toDouble,twofour)
   }
 
 

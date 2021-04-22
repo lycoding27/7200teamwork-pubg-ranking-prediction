@@ -8,6 +8,7 @@ class ModelSpec extends AnyFlatSpec with Matchers {
     RF should be >= 0.0
 
   }
+  
 
   "GTR Model predictions" should "Greater than 0" in {
     val GTR = GradientboostedTreeRegression.rmse

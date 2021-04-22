@@ -1,22 +1,18 @@
 import org.apache.spark.ml.Pipeline
 import org.apache.spark.ml.evaluation.RegressionEvaluator
 import org.apache.spark.ml.feature.VectorIndexer
-import org.apache.spark.ml.regression.{RandomForestRegressionModel, RandomForestRegressor}
+import org.apache.spark.ml.regression.DecisionTreeRegressionModel
+import org.apache.spark.ml.regression.DecisionTreeRegressor
 
-/**
- * This object is Random Forest model.
- */
-object RandomForest extends App{
-
-  // Train a RandomForest model.
-  val rf = new RandomForestRegressor()
+object DecisionTreeRegression extends App {
+  // Train a DecisionTree model.
+  val dt = new DecisionTreeRegressor()
     .setLabelCol("winPlacePerc")
     .setFeaturesCol("features")
-    .setNumTrees(60)
 
-  // Chain indexer and forest in a Pipeline.
+  // Chain indexer and tree in a Pipeline.
   val pipeline = new Pipeline()
-    .setStages(Array(data.assembler, rf))
+    .setStages(Array(data.assembler, dt))
 
   // Train model. This also runs the indexer.
   val model = pipeline.fit(data.train)
@@ -42,11 +38,11 @@ object RandomForest extends App{
   val rmse = evaluatorRMSE.evaluate(predictions)
   val r2 = evaluatorr2.evaluate(predictions)
 
-
   println(s"Root Mean Squared Error (RMSE) on test data = $rmse")
   println(s"R^2^ metric (r2) on test data = $r2")
 
 
-//  val rfModel = model.stages(1).asInstanceOf[RandomForestRegressionModel]
-//  println(s"Learned regression forest model:\n ${rfModel.toDebugString}")
+//  val treeModel = model.stages(1).asInstanceOf[DecisionTreeRegressionModel]
+//  println(s"Learned regression tree model:\n ${treeModel.toDebugString}")
+
 }

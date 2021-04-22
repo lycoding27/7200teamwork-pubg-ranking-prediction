@@ -1,6 +1,6 @@
 import org.apache.spark.ml.regression.LinearRegression
 
-object LinearRegression extends App{
+object LinearRegression {
 
   val lr = new LinearRegression()
     .setMaxIter(10)

@@ -112,7 +112,7 @@ object Main  extends App{
           /**
            * Predict user inputs with selected best model
            */
-          val predictions = GradientboostedTreeRegression.model.transform(userData)
+          val predictions = modelSelect.bestmodel.transform(userData)
           predictions.show(false)
 
           /**

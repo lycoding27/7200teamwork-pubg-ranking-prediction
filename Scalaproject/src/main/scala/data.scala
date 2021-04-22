@@ -24,27 +24,27 @@ object data{
   //find the abnormal kills
   data.createOrReplaceTempView("pubg")
   val abnormalkills = spark.sql("select * from pubg where kills < 20")
-  abnormalkills.show();
+  //abnormalkills.show();
   //find the abnormal ridedistance
   abnormalkills.createOrReplaceTempView("kills")
   val abnormalrideDistance = spark.sql("select * from kills where rideDistance < 20000")
-  abnormalrideDistance.show();
+ // abnormalrideDistance.show();
 
   abnormalrideDistance.createOrReplaceTempView("ride")
   val abnormalwalkDistance = spark.sql("select * from ride where walkDistance < 10000")
-  abnormalwalkDistance.show();
+ // abnormalwalkDistance.show();
 
   abnormalwalkDistance.createOrReplaceTempView("walk")
   val abnormalswimDistance = spark.sql("select * from walk where swimDistance < 10000")
-  abnormalswimDistance.show();
+//  abnormalswimDistance.show();
 
   abnormalswimDistance.createOrReplaceTempView("swim")
   val abnormalweapinAcquired = spark.sql("select * from swim where weaponsAcquired < 80")
-  abnormalweapinAcquired.show();
+//  abnormalweapinAcquired.show();
 
   abnormalweapinAcquired.createOrReplaceTempView("weapon")
   val finaldata = spark.sql("select * from weapon where heals < 40")
-  finaldata.show();
+//  finaldata.show();
 
 
   /**
@@ -55,7 +55,7 @@ object data{
   val Array(train_valid, test) = preddata.randomSplit(Array(0.9, 0.1), seed = 1111L)
   val Array(train, valid) = train_valid.randomSplit(Array(0.7, 0.3), seed = 222L)
 
-  test.show()
+//  test.show()
   //print(test.count())
 
 

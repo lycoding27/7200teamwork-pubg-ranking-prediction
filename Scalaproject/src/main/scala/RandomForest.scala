@@ -6,7 +6,7 @@ import org.apache.spark.ml.regression.{RandomForestRegressionModel, RandomForest
 /**
  * This object is Random Forest model.
  */
-object RandomForest extends App{
+object RandomForest {
 
   // Train a RandomForest model.
   val rf = new RandomForestRegressor()

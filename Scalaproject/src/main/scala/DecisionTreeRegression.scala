@@ -4,7 +4,7 @@ import org.apache.spark.ml.feature.VectorIndexer
 import org.apache.spark.ml.regression.DecisionTreeRegressionModel
 import org.apache.spark.ml.regression.DecisionTreeRegressor
 
-object DecisionTreeRegression extends App {
+object DecisionTreeRegression  {
   // Train a DecisionTree model.
   val dt = new DecisionTreeRegressor()
     .setLabelCol("winPlacePerc")

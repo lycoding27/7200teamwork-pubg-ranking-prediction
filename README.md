@@ -21,5 +21,6 @@ Open the ScalaProject file with IDEA. Run Main.scala in Final Project/src/main/s
 
 **Spark** - The framework to develop the Machine Learning process
 
-## Reference
+## Data source
+https://www.kaggle.com/c/pubg-finish-placement-prediction
 
